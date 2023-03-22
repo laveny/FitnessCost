@@ -160,13 +160,7 @@ for (i in 1:9) {
 }
 
 
-
-
-
-
-
-
-save.image(file = 'figure4.Rdata') 
+save(list = c('fn','wilcox.fn','wt.fit','p','p1','p2','p3','colors','pre.f'),file = 'figure4.Rdata')
 
 
 
