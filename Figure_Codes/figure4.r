@@ -1,8 +1,5 @@
-
 library(dplyr)
-
-
-load('basefn.Rdata')
+load('figure4.related.Rdata')
 
 ## to extract WT data
 
@@ -15,9 +12,9 @@ fn <- fn[fn$n_sub <= 6  & (! fn$geno %in% c('WT','non-functional')),]
 
 ## set vars
 
-vars = paste('C',c('0','2','4'),'T3_fitness',sep = '')
+vars = paste('C',c('0','2','4'),'T3_rg',sep = '')
 
-## calculate fitness of each pre-mature codon
+## calculate relative growth of each pre-mature codon
 
 fn$Codon <- as.integer(fn$Codon)
 
@@ -49,7 +46,7 @@ p1 <- pre.f %>%
               comparisons = list(c('D1','D2'),c('D2','D3'),
                                  c('D1','D3')),
               y_position = c(1.1,1.2,1.4),map_signif_level = c("***"=0.001, "**"=0.01, "*"=0.05),tip_length = 0)+
-  geom_point(aes(x='D4',y=as.numeric(wt.fit[,'C0T3_fitness'][1])),color='#D81159',shape=2,size=2)+
+  geom_point(aes(x='D4',y=as.numeric(wt.fit[,'C0T3_rg'][1])),color='#D81159',shape=2,size=2)+
   scale_color_manual(values = c('D1'=colors[1],'D2'=colors[2],'D3'=colors[3]),
                      labels = c('transmembrane domain', 'linker', 'catalytic domain'))+
   scale_x_discrete(labels = c('transmembrane domain', 'linker', 'catalytic domain','wild-type'))+
@@ -70,7 +67,7 @@ p2<-pre.f %>%
               comparisons = list(c('D1','D2'),c('D2','D3'),
                                  c('D1','D3')),
               y_position = c(2.3,2.5,2.8),map_signif_level = c("***"=0.001, "**"=0.01, "*"=0.05),tip_length = 0)+
-  geom_point(aes(x='D4',y=as.numeric(wt.fit[,'C2T3_fitness'][1])),color='#D81159',shape=2,size=2)+
+  geom_point(aes(x='D4',y=as.numeric(wt.fit[,'C2T3_rg'][1])),color='#D81159',shape=2,size=2)+
   scale_color_manual(values = c('D1'=colors[1],'D2'=colors[2],'D3'=colors[3]),
                      labels = c('transmembrane domain', 'linker', 'catalytic domain'))+
   scale_x_discrete(labels = c('transmembrane domain', 'linker', 'catalytic domain','wild-type'))+
@@ -92,7 +89,7 @@ p3<-pre.f %>%
                                  c('D1','D3')),
               y_position = c(2.3,2.5,2.8),map_signif_level = c("***"=0.001, "**"=0.01, "*"=0.05),tip_length = 0
   )+
-  geom_point(aes(x='D4',y=as.numeric(wt.fit[,'C4T3_fitness'][1])),color='#D81159',shape=2,size=2)+
+  geom_point(aes(x='D4',y=as.numeric(wt.fit[,'C4T3_rg'][1])),color='#D81159',shape=2,size=2)+
   scale_color_manual(values = c('D1'=colors[1],'D2'=colors[2],'D3'=colors[3]),
                      labels = c('transmembrane domain', 'linker', 'catalytic domain'))+
   scale_x_discrete(labels = c('transmembrane domain', 'linker', 'catalytic domain','wild-type'))+
@@ -106,13 +103,10 @@ p3<-pre.f %>%
 
 p <- p1 / p2 / p3
 
-ggsave(filename = 'figure4.pdf',dpi=300,height = 16,width = 12,units = 'cm',plot = p)  
-
-
 ## compare with wild-type
 
 wilcox.fn <- data.frame(Domain = rep(c('D1','D2','D3'),3),
-                        WT = rep(c(wt.fit$C0T3_fitness,wt.fit$C2T3_fitness,wt.fit$C4T3_fitness),each = 3),
+                        WT = rep(c(wt.fit$C0T3_rg,wt.fit$C2T3_rg,wt.fit$C4T3_rg),each = 3),
                         value = rep(c('C0_mean','C2_mean','C4_mean'),each = 3))
 
 wilcox.fn$pvalue = 0
@@ -159,8 +153,4 @@ for (i in 1:9) {
   
 }
 
-
 save(list = c('fn','wilcox.fn','wt.fit','p','p1','p2','p3','colors','pre.f'),file = 'figure4.Rdata')
-
-
-
