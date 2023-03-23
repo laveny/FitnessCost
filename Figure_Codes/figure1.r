@@ -1,4 +1,4 @@
-
+library(ggplot2)
 load('figure1.related.Rdata')
 
 ##  file introduction
