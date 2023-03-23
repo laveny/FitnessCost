@@ -6,7 +6,7 @@ load('figure3.related.Rdata')
 
 color.fun <- function(fn, var1, var2, colors, limit, bounder, na1, na2, panel){
   
-  constant1 = grep('C0T3R[1,2]_rg',colnames(fn),value = T)
+  constant1 = grep(paste(sub('_rg','',var1),'R[1,2]_rg',sep=''),colnames(fn),value = T)
   constant2 = grep(paste(sub('_rg','',var2),'R[1,2]_rg',sep=''),colnames(fn),value = T)
   
   
