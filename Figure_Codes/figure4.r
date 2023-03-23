@@ -1,4 +1,7 @@
+rm(list = ls())
 library(dplyr)
+
+
 load('figure4.related.Rdata')
 
 ## to extract WT data
@@ -102,7 +105,7 @@ p3<-pre.f %>%
 
 
 p <- p1 / p2 / p3
-
+ 
 ## compare with wild-type
 
 wilcox.fn <- data.frame(Domain = rep(c('D1','D2','D3'),3),
@@ -154,3 +157,6 @@ for (i in 1:9) {
 }
 
 save(list = c('fn','wilcox.fn','wt.fit','p','p1','p2','p3','colors','pre.f'),file = 'figure4.Rdata')
+
+
+
