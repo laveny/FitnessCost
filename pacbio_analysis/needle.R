@@ -1,7 +1,4 @@
 
-
-setwd('/mnt/data3/disk/guoziyan/MCR1/published/')
-
 call_dir = './split.call/'
 
 fa_dir = './split.fa/'
@@ -23,7 +20,7 @@ if (dir.exists(call_dir)) {
 
   # 1. split call file into sub files for multi-processing
     
-  system(command = "awk 'BEGIN {n_seq=0;n_file=1} /^>/ {if(n_seq%80000==0){file=sprintf(\"./split.call/myseq%d.txt\",n_file);n_file++} print >> file; n_seq++; next;} { print >> file; }' < m64061_210204_092329.max.call.txt")
+  system(command = "awk 'BEGIN {n_seq=0;n_file=1} /^>/ {if(n_seq%80000==0){file=sprintf(\"./split.call/myseq%d.txt\",n_file);n_file++} print >> file; n_seq++; next;} { print >> file; }' < m64061_210204_092329.call.bar_geno.txt")
   
   # 2. 
   
